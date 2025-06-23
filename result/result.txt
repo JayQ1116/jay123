@@ -1,0 +1,256 @@
+머신러닝 모델 분석 결과
+================================================================================
+
+ 완전한 머신 러닝 Pipeline 분석을 시작하세요...
+
+================================================================================
+Part I: Random Forest Baseline Analysis Using All Features
+================================================================================
+Number of features: 25
+Number of samples: 400
+Model accuracy using all features: 0.9917
+
+Classification Report:
+              precision    recall  f1-score   support
+
+           0       1.00      0.98      0.99        46
+           1       0.99      1.00      0.99        74
+
+    accuracy                           0.99       120
+   macro avg       0.99      0.99      0.99       120
+weighted avg       0.99      0.99      0.99       120
+
+ROC AUC Score: 0.9912
+
+Top 20 most important features:
+       feature  importance
+10        hemo    0.191706
+7           sc    0.178386
+2           sg    0.173468
+11         pcv    0.097436
+3           al    0.061997
+18     htn_yes    0.057580
+5          bgr    0.047693
+13        rbcc    0.031679
+19       dm_no    0.028251
+6           bu    0.020922
+8          sod    0.019789
+20      dm_yes    0.017123
+22  appet_poor    0.015597
+23      pe_yes    0.015308
+0          age    0.012335
+12        wbcc    0.008350
+1           bp    0.007069
+9          pot    0.005707
+15   pc_normal    0.003312
+4           su    0.002467
+
+Top 20 feature names: ['hemo', 'sc', 'sg', 'pcv', 'al', 'htn_yes', 'bgr', 'rbcc', 'dm_no', 'bu', 'sod', 'dm_yes', 'appet_poor', 'pe_yes', 'age', 'wbcc', 'bp', 'pot', 'pc_normal', 'su']
+
+================================================================================
+Part II: Multi-Model Optimization Analysis Using Selected Features
+================================================================================
+Number of features used: 20
+Number of samples: 400
+Target variable distribution:
+class
+1    248
+0    152
+Name: count, dtype: int64
+
+================================================================================
+Stage 1: Initial Grid Search for Rough Best Parameters
+================================================================================
+
+Initial search: Random Forest
+  Initial best params: {'classifier__max_depth': None, 'classifier__min_samples_split': 2, 'classifier__n_estimators': 200}
+  Initial best CV score: 0.9821
+
+Initial search: Logistic Regression
+  Initial best params: {'classifier__C': 1, 'classifier__penalty': 'l1', 'classifier__solver': 'liblinear'}
+  Initial best CV score: 0.9643
+
+Initial search: SVM
+  Initial best params: {'classifier__C': 10, 'classifier__kernel': 'rbf'}
+  Initial best CV score: 0.9821
+
+Initial search: Decision Tree
+  Initial best params: {'classifier__max_depth': 5, 'classifier__min_samples_split': 2}
+  Initial best CV score: 0.9429
+
+Initial search: XGBoost
+  Initial best params: {'classifier__learning_rate': 0.2, 'classifier__max_depth': 6, 'classifier__n_estimators': 200}
+  Initial best CV score: 0.9714
+
+================================================================================
+Stage 2: Validation Curve Fine-tuning of Key Parameters
+================================================================================
+
+Fine-tuning parameter: Random Forest - Number of Trees (n_estimators)
+  Best Number of Trees (n_estimators): 150
+  Validation score: 0.9821
+
+Fine-tuning parameter: Logistic Regression - Regularization Strength (C)
+  Best Regularization Strength (C): 1
+  Validation score: 0.9643
+
+Fine-tuning parameter: SVM - Regularization Strength (C)
+  Best Regularization Strength (C): 2
+  Validation score: 0.9857
+
+Fine-tuning parameter: Decision Tree - Max Depth (max_depth)
+  Best Max Depth (max_depth): 5
+  Validation score: 0.9429
+
+Fine-tuning parameter: XGBoost - Number of Trees (n_estimators)
+  Best Number of Trees (n_estimators): 200
+  Validation score: 0.9714
+
+================================================================================
+Stage 3: Train Models with Final Parameters
+================================================================================
+
+Final training: Random Forest
+  Final params: {'classifier__max_depth': None, 'classifier__min_samples_split': 2, 'classifier__n_estimators': 150}
+  Cross-validation: 0.9821 (+/- 0.0319)
+  Test accuracy: 0.9917
+
+Final training: Logistic Regression
+  Final params: {'classifier__penalty': 'l1', 'classifier__solver': 'liblinear', 'classifier__C': 1}
+  Cross-validation: 0.9643 (+/- 0.0391)
+  Test accuracy: 0.9750
+
+Final training: SVM
+  Final params: {'classifier__kernel': 'rbf', 'classifier__C': 2}
+  Cross-validation: 0.9857 (+/- 0.0350)
+  Test accuracy: 0.9917
+
+Final training: Decision Tree
+  Final params: {'classifier__min_samples_split': 2, 'classifier__max_depth': 5}
+  Cross-validation: 0.9429 (+/- 0.0350)
+  Test accuracy: 0.9667
+
+Final training: XGBoost
+  Final params: {'classifier__learning_rate': 0.2, 'classifier__max_depth': 6, 'classifier__n_estimators': 200}
+  Cross-validation: 0.9714 (+/- 0.0484)
+  Test accuracy: 0.9833
+
+================================================================================
+Comparison of Parameter Optimization Effects
+================================================================================
+
+Comparison of parameter optimization effects:
+                 Model  Initial_CV_Score  ...  Final_Test_Score  Improvement
+0        Random Forest            0.9821  ...            0.9917       0.0000
+1  Logistic Regression            0.9643  ...            0.9750       0.0000
+2                  SVM            0.9821  ...            0.9917       0.0036
+3        Decision Tree            0.9429  ...            0.9667       0.0000
+4              XGBoost            0.9714  ...            0.9833       0.0000
+
+[5 rows x 5 columns]
+
+Final model detailed metrics:
+                     Accuracy  Precision  Recall  F1-Score
+Random Forest          0.9917     0.9867  1.0000    0.9933
+Logistic Regression    0.9750     0.9863  0.9730    0.9796
+SVM                    0.9917     0.9867  1.0000    0.9933
+Decision Tree          0.9667     0.9861  0.9595    0.9726
+XGBoost                0.9833     0.9865  0.9865    0.9865
+
+================================================================================
+Start generating full visualization analysis
+================================================================================
+
+All charts have been generated and saved:
+random_forest_analysis.png - Random Forest Baseline Analysis
+validation_curves.png - Validation Curves
+parameter_optimization_comparison.png - Parameter Optimization Comparison
+confusion_matrices.png - Confusion Matrices
+learning_curves.png - Learning Curves
+feature_importance_rf.png - Random Forest Feature Importance
+feature_importance_lr.png - Logistic Regression Feature Importance
+feature_importance_dt.png - Decision Tree Feature Importance
+feature_importance_xgb.png - XGBoost Feature Importance
+roc_curves.png - ROC Curve Comparison
+performance_comparison.png - Performance Comparison
+
+================================================================================
+Detailed Analysis Results
+================================================================================
+
+Random Forest:
+  Final params: {'classifier__max_depth': None, 'classifier__min_samples_split': 2, 'classifier__n_estimators': 150}
+  Cross-validation score: 0.9821
+  Test set accuracy: 0.9917
+  Classification report:
+                  precision    recall  f1-score   support
+    
+               0       1.00      0.98      0.99        46
+               1       0.99      1.00      0.99        74
+    
+        accuracy                           0.99       120
+       macro avg       0.99      0.99      0.99       120
+    weighted avg       0.99      0.99      0.99       120
+    
+
+Logistic Regression:
+  Final params: {'classifier__penalty': 'l1', 'classifier__solver': 'liblinear', 'classifier__C': 1}
+  Cross-validation score: 0.9643
+  Test set accuracy: 0.9750
+  Classification report:
+                  precision    recall  f1-score   support
+    
+               0       0.96      0.98      0.97        46
+               1       0.99      0.97      0.98        74
+    
+        accuracy                           0.97       120
+       macro avg       0.97      0.98      0.97       120
+    weighted avg       0.98      0.97      0.98       120
+    
+
+SVM:
+  Final params: {'classifier__kernel': 'rbf', 'classifier__C': 2}
+  Cross-validation score: 0.9857
+  Test set accuracy: 0.9917
+  Classification report:
+                  precision    recall  f1-score   support
+    
+               0       1.00      0.98      0.99        46
+               1       0.99      1.00      0.99        74
+    
+        accuracy                           0.99       120
+       macro avg       0.99      0.99      0.99       120
+    weighted avg       0.99      0.99      0.99       120
+    
+
+Decision Tree:
+  Final params: {'classifier__min_samples_split': 2, 'classifier__max_depth': 5}
+  Cross-validation score: 0.9429
+  Test set accuracy: 0.9667
+  Classification report:
+                  precision    recall  f1-score   support
+    
+               0       0.94      0.98      0.96        46
+               1       0.99      0.96      0.97        74
+    
+        accuracy                           0.97       120
+       macro avg       0.96      0.97      0.97       120
+    weighted avg       0.97      0.97      0.97       120
+    
+
+XGBoost:
+  Final params: {'classifier__learning_rate': 0.2, 'classifier__max_depth': 6, 'classifier__n_estimators': 200}
+  Cross-validation score: 0.9714
+  Test set accuracy: 0.9833
+  Classification report:
+                  precision    recall  f1-score   support
+    
+               0       0.98      0.98      0.98        46
+               1       0.99      0.99      0.99        74
+    
+        accuracy                           0.98       120
+       macro avg       0.98      0.98      0.98       120
+    weighted avg       0.98      0.98      0.98       120
+    
+
+Analysis complete! All results have been saved to the result directory.

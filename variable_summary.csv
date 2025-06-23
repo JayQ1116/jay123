@@ -1,0 +1,26 @@
+﻿Variable Name,Sample Count (#),Missing Count (Na),Type,Description
+age,391,9,Continuous,Age of the patient
+bp,388,12,Continuous,Blood pressure
+sg,353,47,Categorical,Specific gravity
+al,354,46,Categorical,Albumin
+su,351,49,Categorical,Sugar
+rbc,248,152,Categorical,Red blood cells
+pc,335,65,Categorical,Pus cell
+pcc,396,4,Categorical,Pus cell clumps
+ba,396,4,Categorical,Bacteria
+bgr,356,44,Continuous,Blood glucose random
+bu,381,19,Continuous,Blood urea
+sc,383,17,Continuous,Serum creatinine
+sod,313,87,Continuous,Sodium
+pot,312,88,Continuous,Potassium
+hemo,348,52,Continuous,Hemoglobin
+pcv,329,71,Continuous,Packed cell volume
+wbcc,294,106,Continuous,NA
+rbcc,269,131,Continuous,NA
+htn,398,2,Categorical,Hypertension
+dm,398,2,Categorical,Diabetes mellitus
+cad,398,2,Categorical,Coronary artery disease
+appet,399,1,Categorical,Appetite
+pe,399,1,Categorical,Pedal edema
+ane,399,1,Categorical,Anemia
+class,400,0,Categorical,Chronic kidney disease diagnosis label
