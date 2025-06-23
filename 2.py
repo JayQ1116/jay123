@@ -721,6 +721,8 @@ def main():
             progress_bar = st.progress(0)
             status_text = st.empty()
             status_text.text('Training model, please wait...')
+            sample_frac = st.sidebar.slider("Training sample fraction", 0.1, 1.0, 0.3)
+            X_sampled, _, y_sampled, _ = train_test_split(X, y, train_size=sample_frac, stratify=y, random_state=42)
             results = train_models_core(X, y, df_encoded)
             st.session_state['trained'] = True
             st.session_state['results'] = results
